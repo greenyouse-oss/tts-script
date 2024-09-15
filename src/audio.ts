@@ -1,12 +1,13 @@
+import { exec } from "node:child_process"
+import console from "node:console"
+import { promisify } from "node:util"
+
 import {
-  GenerateAudioFile,
-  TextFile,
   ESpeakExecutionError,
   ESpeakOptions,
+  GenerateAudioFile,
+  TextFile,
 } from "./types"
-import { exec } from "node:child_process"
-import { promisify } from "node:util"
-import console from "node:console"
 
 const execAsync = promisify(exec)
 
@@ -18,7 +19,7 @@ export const generateAudioFile: GenerateAudioFile = async (
   try {
     // Check if espeak is installed
     await execAsync("espeak --version")
-  } catch (error) {
+  } catch {
     throw new Error(
       "espeak is not installed or not available in the system PATH",
     )

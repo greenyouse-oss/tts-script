@@ -1,13 +1,14 @@
-import { ParseCommandLineArgs, CommandLineArgs, ESpeakOptions } from "./types"
-import { convertBookToText } from "./converter"
-import { generateAudioFile } from "./audio"
-import { errorHandler } from "./error"
-import { BookFile } from "./types"
-import path from "node:path"
 import console from "node:console"
+import path from "node:path"
 import process from "node:process"
 
-const showHelpMessage = () => {
+import { generateAudioFile } from "./audio"
+import { convertBookToText } from "./converter"
+import { errorHandler } from "./error"
+import { CommandLineArgs, ESpeakOptions, ParseCommandLineArgs } from "./types"
+import { BookFile } from "./types"
+
+const showHelpMessage = (): void => {
   console.log(`
 Usage: node script.js <book_file_path> [start_page] [options]
 
@@ -26,25 +27,25 @@ Example:
 }
 
 const parseCommandLineArgs: ParseCommandLineArgs = (args): CommandLineArgs => {
-  if (args.length < 3) {
+  if (args.length < 3 || typeof args[2] !== "string") {
     showHelpMessage()
     process.exit(1)
   }
 
   const bookFilePath = args[2]
-  const startPage = parseInt(args[3]) || 1
+  const startPage = Number(args[3]) || 1
   const voice = args.find((arg) => arg.startsWith("--voice="))?.split("=")[1]
   const speed = args.find((arg) => arg.startsWith("--speed="))?.split("=")[1]
 
   return {
     bookFilePath,
+    speed: speed ? parseInt(speed) : 400,
     startPage,
     voice,
-    speed: speed ? parseInt(speed) : undefined,
   }
 }
 
-async function main() {
+async function main(): Promise<void> {
   const args = parseCommandLineArgs(process.argv)
 
   if (args.showHelp) {
@@ -72,8 +73,8 @@ async function main() {
     const outputPath = args.bookFilePath.replace(/\.(pdf|epub)$/, ".wav")
     console.log("Generating audio file...")
     const espeakOptions: ESpeakOptions = {
-      voice: args.voice,
       speed: args.speed,
+      voice: args.voice,
     }
     await generateAudioFile(textFile, outputPath, espeakOptions)
     console.log(`Audio file generated: ${outputPath}`)

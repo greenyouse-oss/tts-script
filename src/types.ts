@@ -1,39 +1,39 @@
 // Supported book file types
-type BookFileType = "pdf" | "epub"
+export type BookFileType = "pdf" | "epub"
 
 // Input book file
-interface BookFile {
+export interface BookFile {
   path: string
   type: BookFileType
 }
 
 // Output text file
-interface TextFile {
+export interface TextFile {
   path: string
   content: string
 }
 
 // Conversion process
-interface BookConverter {
+export interface BookConverter {
   convert(book: BookFile, startPage?: number): Promise<TextFile>
 }
 
 // ESpeak command
-interface ESpeakCommand {
+export interface ESpeakCommand {
   inputFile: string
   outputFile: string
   execute(): Promise<void>
 }
 
 // Error types
-class UnsupportedFileTypeError extends Error {
+export class UnsupportedFileTypeError extends Error {
   constructor(fileType: string) {
     super(`Unsupported file type: ${fileType}`)
     this.name = "UnsupportedFileTypeError"
   }
 }
 
-class ESpeakExecutionError extends Error {
+export class ESpeakExecutionError extends Error {
   constructor(message: string) {
     super(`ESpeak execution failed: ${message}`)
     this.name = "ESpeakExecutionError"
@@ -41,7 +41,7 @@ class ESpeakExecutionError extends Error {
 }
 
 // Command-line arguments
-interface CommandLineArgs {
+export interface CommandLineArgs {
   bookFilePath: string
   startPage: number
   voice?: string
@@ -50,37 +50,22 @@ interface CommandLineArgs {
 }
 
 // Function signatures
-type ParseCommandLineArgs = (args: string[]) => CommandLineArgs
+export type ParseCommandLineArgs = (args: string[]) => CommandLineArgs
 
-type ConvertBookToText = (
+export type ConvertBookToText = (
   book: BookFile,
   startPage?: number,
 ) => Promise<TextFile>
-
-type GenerateAudioFile = (
-  textFile: TextFile,
-  outputPath: string,
-  options?: ESpeakOptions,
-) => Promise<void>
-
-type ErrorHandler = (error: Error) => void
 
 export interface ESpeakOptions {
   voice?: string
   speed?: number
 }
 
-export {
-  BookFileType,
-  BookFile,
-  TextFile,
-  BookConverter,
-  ESpeakCommand,
-  UnsupportedFileTypeError,
-  ESpeakExecutionError,
-  CommandLineArgs,
-  ParseCommandLineArgs,
-  ConvertBookToText,
-  GenerateAudioFile,
-  ErrorHandler,
-}
+export type GenerateAudioFile = (
+  textFile: TextFile,
+  outputPath: string,
+  options?: ESpeakOptions,
+) => Promise<void>
+
+export type ErrorHandler = (error: Error) => void

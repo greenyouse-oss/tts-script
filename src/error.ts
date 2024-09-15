@@ -1,14 +1,15 @@
 import console from "node:console"
 import process from "node:process"
+
 import {
   ErrorHandler,
-  UnsupportedFileTypeError,
   ESpeakExecutionError,
+  UnsupportedFileTypeError,
 } from "./types"
 
 export const errorHandler: ErrorHandler = (error: Error): void => {
   let errorMessage: string
-  let exitCode = 1
+  const exitCode = 1
 
   switch (true) {
     case error instanceof UnsupportedFileTypeError:
