@@ -3,8 +3,6 @@ import globals from 'globals';
 import typescriptParser from '@typescript-eslint/parser';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import prettierPlugin from 'eslint-plugin-prettier';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import functionalPlugin from 'eslint-plugin-functional';
 import immutablePlugin from 'eslint-plugin-immutable';
 import nodePlugin from 'eslint-plugin-node';
@@ -14,7 +12,6 @@ import jestPlugin from 'eslint-plugin-jest';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jestFormattingPlugin from 'eslint-plugin-jest-formatting';
 import promisePlugin from 'eslint-plugin-promise';
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 
 export default [
@@ -26,9 +23,6 @@ export default [
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: "module",
-        ecmaFeatures: {
-          jsx: true,
-        },
         project: "./tsconfig.json",
       },
       globals: {
@@ -38,8 +32,6 @@ export default [
     },
     plugins: {
       "@typescript-eslint": typescriptPlugin,
-      react: reactPlugin,
-      "react-hooks": reactHooksPlugin,
       functional: functionalPlugin,
       node: nodePlugin,
       "sort-keys-fix": sortKeysFixPlugin,
@@ -49,14 +41,10 @@ export default [
       "jest-dom": jestDomPlugin,
       "jest-formatting": jestFormattingPlugin,
       promise: promisePlugin,
-      "jsx-a11y": jsxA11yPlugin,
       "testing-library": testingLibraryPlugin,
       prettier: prettierPlugin,
     },
     settings: {
-      react: {
-        version: "detect",
-      },
       "import/resolver": {
         node: {
           extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -73,8 +61,6 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...typescriptPlugin.configs.recommended.rules,
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooksPlugin.configs.recommended.rules,
 
       // Functional programming rules
       "functional/immutable-data": "error",
@@ -106,11 +92,6 @@ export default [
 
       // Additional rules for better code quality
       "no-use-before-define": ["error", { functions: false, classes: true }],
-
-      // React specific rules
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
 
       // Node specific rules
       "node/no-missing-import": "off",
