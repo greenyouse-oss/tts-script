@@ -11,12 +11,19 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:pdf-parse",
     "start": "node dist/index.js",
+    "healthcheck": "yarn lint && yarn typecheck && yarn test",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "jest --coverage --config jest.config.ts src",
+    "test:watch": "jest --watch --config jest.config.ts src"
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
+    "@swc/core": "^1.7.26",
+    "@swc/jest": "^0.2.36",
     "@types/html-to-text": "^9.0.4",
+    "@types/jest": "^29.5.13",
     "@types/node": "20.14.0",
     "@types/pdf-parse": "^1.1.4",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
@@ -27,7 +34,6 @@
     "eslint-plugin-functional": "^7.0.2",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-jest": "^28.8.3",
-    "eslint-plugin-jest-dom": "^5.4.0",
     "eslint-plugin-jest-formatting": "^3.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -36,7 +42,11 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-testing-library": "^6.3.0",
     "globals": "^15.9.0",
+    "jest": "^29.7.0",
+    "minimatch": "^10.0.1",
     "prettier": "^3.2.5",
+    "test-exclude": "^7.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "~5.5.0"
   },
   "dependencies": {
