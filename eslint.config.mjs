@@ -1,22 +1,28 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import typescriptParser from '@typescript-eslint/parser';
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-import prettierPlugin from 'eslint-plugin-prettier';
-import functionalPlugin from 'eslint-plugin-functional';
-import immutablePlugin from 'eslint-plugin-immutable';
-import nodePlugin from 'eslint-plugin-node';
-import sortKeysFixPlugin from 'eslint-plugin-sort-keys-fix';
-import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
-import jestPlugin from 'eslint-plugin-jest';
-import jestFormattingPlugin from 'eslint-plugin-jest-formatting';
-import promisePlugin from 'eslint-plugin-promise';
-import testingLibraryPlugin from 'eslint-plugin-testing-library';
+import js from "@eslint/js"
+import globals from "globals"
+import typescriptParser from "@typescript-eslint/parser"
+import typescriptPlugin from "@typescript-eslint/eslint-plugin"
+import prettierPluginRecommended from "eslint-plugin-prettier/recommended"
+import functionalPlugin from "eslint-plugin-functional"
+import immutablePlugin from "eslint-plugin-immutable"
+import nodePlugin from "eslint-plugin-node"
+import sortKeysFixPlugin from "eslint-plugin-sort-keys-fix"
+import simpleImportSortPlugin from "eslint-plugin-simple-import-sort"
+import jestPlugin from "eslint-plugin-jest"
+import jestFormattingPlugin from "eslint-plugin-jest-formatting"
+import promisePlugin from "eslint-plugin-promise"
+import testingLibraryPlugin from "eslint-plugin-testing-library"
 
 export default [
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    ignores: ['node_modules/', 'dist/', 'eslint.config.js', ".prettierrc.js", "jest.config.*"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    ignores: [
+      "node_modules/",
+      "dist/",
+      "eslint.config.js",
+      ".prettierrc.js",
+      "jest.config.*",
+    ],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -38,7 +44,6 @@ export default [
       "simple-import-sort": simpleImportSortPlugin,
       promise: promisePlugin,
       "testing-library": testingLibraryPlugin,
-      prettier: prettierPlugin,
     },
     settings: {
       "import/resolver": {
@@ -93,9 +98,6 @@ export default [
       "node/no-missing-import": "off",
       "node/no-unpublished-import": "off",
 
-      // Prettier integration
-      "prettier/prettier": "error",
-
       // Additional best practices
       "prefer-const": "error",
       "no-var": "error",
@@ -107,7 +109,7 @@ export default [
     rules: {
       // TypeScript specific rules
       "@typescript-eslint/no-unused-vars": "off", // core rule conflict
-      '@typescript-eslint/no-use-before-define': "off", // core rule conflict
+      "@typescript-eslint/no-use-before-define": "off", // core rule conflict
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/explicit-function-return-type": "error",
     },
@@ -126,10 +128,10 @@ export default [
     },
   },
   {
-    files: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+    files: ["**/__tests__/**/*.ts", "**/?(*.)+(spec|test).ts"],
     plugins: {
       jest: jestPlugin,
-      'jest-formatting': jestFormattingPlugin,
+      "jest-formatting": jestFormattingPlugin,
     },
     rules: {
       ...jestPlugin.configs.recommended.rules,
@@ -140,5 +142,6 @@ export default [
         ...globals.jest,
       },
     },
-  }
-];
+  },
+  prettierPluginRecommended,
+]
