@@ -2,10 +2,14 @@
     "compilerOptions": {
         "target": "ES2022",
         "module": "NodeNext",
-        "lib": [
-            "ES2022"
-        ],
         "moduleResolution": "NodeNext",
+        "types": [
+            "jest",
+            "node"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
         "rootDir": "src",
         "outDir": "dist",
         "strict": true,
@@ -22,7 +26,9 @@
         "noImplicitOverride": true,
         "allowUnreachableCode": false,
         "allowJs": true,
-        "checkJs": true
+        "checkJs": true,
+        "sourceMap": true,
+        "inlineSourceMap": false
     },
     "include": [
         "src/**/*"
