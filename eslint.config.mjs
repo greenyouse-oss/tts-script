@@ -9,15 +9,14 @@ import nodePlugin from 'eslint-plugin-node';
 import sortKeysFixPlugin from 'eslint-plugin-sort-keys-fix';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import jestPlugin from 'eslint-plugin-jest';
-import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jestFormattingPlugin from 'eslint-plugin-jest-formatting';
 import promisePlugin from 'eslint-plugin-promise';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 
 export default [
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.json'],
-    ignores: ['node_modules/', 'dist/', 'eslint.config.js', ".prettierrc.js"],
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    ignores: ['node_modules/', 'dist/', 'eslint.config.js', ".prettierrc.js", "jest.config.*"],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -37,9 +36,6 @@ export default [
       "sort-keys-fix": sortKeysFixPlugin,
       immutable: immutablePlugin,
       "simple-import-sort": simpleImportSortPlugin,
-      jest: jestPlugin,
-      "jest-dom": jestDomPlugin,
-      "jest-formatting": jestFormattingPlugin,
       promise: promisePlugin,
       "testing-library": testingLibraryPlugin,
       prettier: prettierPlugin,
@@ -127,6 +123,22 @@ export default [
       "no-process-env": "off", // Webpack configs often use process.env
       "node/no-unpublished-require": "off", // Allows using devDependencies
       "node/no-missing-require": "off", // Webpack may have custom resolve paths
+    },
+  },
+  {
+    files: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+    plugins: {
+      jest: jestPlugin,
+      'jest-formatting': jestFormattingPlugin,
+    },
+    rules: {
+      ...jestPlugin.configs.recommended.rules,
+      ...jestFormattingPlugin.configs.recommended.rules,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
     },
   }
 ];
