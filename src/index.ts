@@ -45,7 +45,7 @@ const parseCommandLineArgs: ParseCommandLineArgs = (args): CommandLineArgs => {
   }
 }
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   const args = parseCommandLineArgs(process.argv)
 
   if (args.showHelp) {
@@ -76,7 +76,7 @@ async function main(): Promise<void> {
       speed: args.speed,
       voice: args.voice,
     }
-    await generateAudioFile(textFile, outputPath, espeakOptions)
+    generateAudioFile(textFile, outputPath, espeakOptions)
     console.log(`Audio file generated: ${outputPath}`)
 
     console.log("Conversion completed successfully!")

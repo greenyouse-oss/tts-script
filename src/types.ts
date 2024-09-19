@@ -66,6 +66,6 @@ export type GenerateAudioFile = (
   textFile: TextFile,
   outputPath: string,
   options?: ESpeakOptions,
-) => Promise<void>
+) => void
 
 export type ErrorHandler = (error: Error) => void
